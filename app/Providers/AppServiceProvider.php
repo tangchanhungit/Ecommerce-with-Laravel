@@ -13,6 +13,9 @@ use App\Repositories\ProductRepository;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\RegisterRepository;
 use App\Repositories\RegisterRepositoryInterface;
+use App\Repositories\CategoryRepository;
+use App\Repositories\CategoryRepositoryInterface;
+
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -29,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(RegisterRepositoryInterface::class, RegisterRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+
     }
 
     /**

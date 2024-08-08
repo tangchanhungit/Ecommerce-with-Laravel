@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+
+
 
 class CheckRole
 {
@@ -16,10 +17,19 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check() || !Auth::user()->roles()->where('role_name', $role)->exists()) {
-            return redirect('/home');
+        $user = $request->user();
+
+        if ($user->status == 0) {
+            Auth::logout();
+            return redirect()->route('password.form')->withErrors(['status' => 'Your account is inactive. Please contact support.']);
         }
 
-        return $next($request);
+        if ($user->hasRole($role)) {
+            return $next($request);
+        }
+
+        return redirect()->route('home')->withErrors(['error' => 'Unauthorized access']);
     }
+
+    
 }

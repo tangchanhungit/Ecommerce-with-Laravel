@@ -31,7 +31,7 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $this->userRepository->validator($request->all())->validate();
-        $this->userRepository->createUser($request->all());
+        $this->userRepository->createUserSeller($request->all());
 
         return redirect()->route('admin.users.list')->with('success', 'Create new employee success.Email sent successfully.');
     }

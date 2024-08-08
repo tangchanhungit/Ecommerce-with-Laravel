@@ -46,7 +46,7 @@
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delive &amp; Free Returns</span>
-					    </div>
+					    </div>	
 				    </div>
 			    </div>
 		    </div>
@@ -60,15 +60,38 @@
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="{{route('products')}}" class="nav-link">Shop</a></li>
-	          <li class="nav-item"><a href="{{route('about')}}" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="{{route('blog')}}" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="{{route('contact')}}" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="{{route('cart')}}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
-	        </ul>
+	        	<ul class="navbar-nav ml-auto">
+	        	<li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
+	        	<li class="nav-item"><a href="{{route('products')}}" class="nav-link">Shop</a></li>
+	        	<li class="nav-item"><a href="{{route('about')}}" class="nav-link">About</a></li>
+	        	<li class="nav-item"><a href="{{route('blog')}}" class="nav-link">Blog</a></li>
+	        	<li class="nav-item"><a href="{{route('contact')}}" class="nav-link">Contact</a></li>
+				<li class="nav-item dropdown">
+						@auth
+							<a class="nav-link text" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+							</a>
+								<div class="nav-link dropdown-menu" aria-labelledby="userDropdown">
+									<a class="dropdown-item" href="#">Profile</a>
+									<a class="dropdown-item" href="#">Orders</a>
+									<a class="dropdown-item" href="#">Favourites</a>
+									<a class="dropdown-item" href="#">Inbox</a>
+									<a class="dropdown-item" href="#">Experiences</a>
+									<a class="dropdown-item" href="#">Account</a>
+									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+										Log Out
+									</a>
+								</div>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								    @csrf
+								</form>
+						@else
+							<li class="nav-item">
+								<a href="{{ route('login.form') }}" class="nav-link">Sign In</a>
+							</li>
+						@endauth
+				</li>	        
+			</ul>
 	      </div>
 	    </div>
 	</nav>

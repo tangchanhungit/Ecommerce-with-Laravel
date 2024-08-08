@@ -50,7 +50,7 @@ class UserRepository implements UserRepositoryInterface
         return User::whereDate('created_at', now()->toDateString())->count();
     }
 
-    public function createUser(array $data)
+    public function createUserSeller(array $data)
     {
         $password = Str::random(10);
 
@@ -59,16 +59,26 @@ class UserRepository implements UserRepositoryInterface
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($password),
+            'status' => '0',
         ]);
 
         $user->roles()->attach(2);
 
-        try {
-            Mail::to($user->email)->send(new UserRegistered($user, $password));
-            Log::info('Email sent to ' . $user->email);
-        } catch (\Exception $e) {
-            Log::error('Failed to send email to ' . $user->email . '. Error: ' . $e->getMessage());
-        }
+        return $user;
+    }
+
+    public function createUser(array $data)
+    {
+
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'status' => 1,
+        ]);
+
+        $user->roles()->attach(3);
 
         return $user;
     }
@@ -99,5 +109,9 @@ class UserRepository implements UserRepositoryInterface
         $user = User::findOrFail($id);
         $user->roles()->detach();
         $user->delete();
+    }
+    public function findByEmail($email)
+    {
+        return User::where('email',$email)->first();
     }
 }

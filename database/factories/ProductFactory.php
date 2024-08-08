@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'product_name' => $this->faker->word,
             'description' => $this->faker->paragraph,
             'price' => $this->faker->randomFloat(2, 1, 100),
-            'weight' => $this->faker->randomFloat(2, 1,100),
+            'stock' => $this->faker->randomFloat(2, 1,100),
             'image' => 'frontend/images/products/' . $this->faker->image(public_path('frontend/images/products'), 500, 500, null, false),
             'created_at' => now(),
             'updated_at' => now(),

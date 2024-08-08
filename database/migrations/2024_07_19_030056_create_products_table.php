@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->text('description');
             $table->decimal('price');
-            $table->decimal('weight');
+            $table->decimal('stock');
             $table->mediumText('image')->nullable();
             $table->timestamps();
         });

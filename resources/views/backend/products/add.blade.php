@@ -27,7 +27,7 @@
           </h3>
         </div>
         <!-- /.card-header -->
-        <form method="POST" action="{{route('admin.product.create')}}">
+        <form method="POST" action="{{route('admin.products.create')}}">
             @csrf
             <div class="card-body">
               <div class="form-group">

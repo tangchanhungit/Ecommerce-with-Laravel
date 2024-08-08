@@ -8,7 +8,6 @@ use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
 class OrderRepository implements OrderRepositoryInterface
 {
     public function getNewOrdersCount()
@@ -47,7 +46,7 @@ class OrderRepository implements OrderRepositoryInterface
         return [
             'orders' => $orders,
             'statuses' => $statuses,
-            'paymentMethods' => $paymentMethods // Adjusted from paymentMethodes to paymentMethods
+            'paymentMethods' => $paymentMethods,
         ];
     }
 
@@ -56,21 +55,19 @@ class OrderRepository implements OrderRepositoryInterface
         $validatedData = $this->validateOrderData($data);
 
         $order = Order::create([
-            'order_number' => $data['order_number'], // Example field
-            'user_id' => $validatedData['user_id'], // Example field
-            'status' => $validatedData['status'], // Example field
-            'payment_method' => $validatedData['payment_method'], // Example field
-            // Add other fields as necessary
+            'order_number' => $data['order_number'],
+            'user_id' => $validatedData['user_id'], 
+            'status' => $validatedData['status'], 
+            'payment_method' => $validatedData['payment_method'],
         ]);
         return $order;
     }
     public function validateOrderData(array $data)
     {
         return Validator::make($data, [
-            'user_id' => ['required', 'exists:users,id'], // Ensure the user exists
+            'user_id' => ['required', 'exists:users,id'],
             'status' => ['required', 'string'],
             'payment_method' => ['required', 'string'],
-            // Add other validations as necessary
         ])->validate();
     }
 

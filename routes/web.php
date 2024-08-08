@@ -1,19 +1,18 @@
 <?php
 
-use App\Http\Controllers\Web\auth\LoginController;
-use App\Http\Controllers\Web\auth\RegisterController;
+
 use App\Http\Controllers\Web\backend\DashBoardController;
 use App\Http\Controllers\Web\backend\ProductController;
 use App\Http\Controllers\Web\backend\UserController;
-use App\Http\Controllers\Web\frontend\ProductController as FrontendProductController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Web\backend\OrderController;
-use App\Http\Controllers\Web\frontend\CartController;
+use App\Http\Controllers\Web\auth\AuthController;
 use App\Http\Controllers\Web\frontend\IndexController;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
+
 // Admin routes
-Route::prefix("admin")->name("admin.")->group(function () {
+Route::prefix("admin")->name("admin.")->middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashBoardController::class, 'index'])->name('home');
     
     Route::prefix('/users')->name("users.")->group(function () {
@@ -45,40 +44,44 @@ Route::prefix("admin")->name("admin.")->group(function () {
             Route::get('/info/{id}','showOrderDetails')->name('info');
         });
     });
-})->middleware(['auth', 'role:admin']);
-
-Route::prefix("customer")->name("customer.")->group(function () {
-    Route::get('/home', [HomeController::class, 'home'])->name('home');
-
-})->middleware(['auth', 'role:customer']);
-
-
-Route::get('/',[HomeController::class,'home'])->name('home');
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/products', [IndexController::class, 'products'])->name('products');
-Route::prefix('/products')->group(function () {
-    Route::get('/{id}', [FrontendProductController::class,'infoProduct'])->name('products.info');
 });
 
-Route::get('/about',[IndexController::class,'about'])->name('about');
+Route::prefix("customer")->name("customer.")->group(function () {
 
-Route::get('/cart',[IndexController::class,'cart'])->name('cart');
-Route::post('/cart/add',[FrontendProductController::class, 'addProductToCart'])->name('cart.add');
+})->middleware(['auth','role:customer']);
 
-Route::get('/contact',[IndexController::class,'contact'])->name('contact');
-Route::get('/check-out',[IndexController::class,'checkOut'])->name('checkout');
-Route::get('/blog',[IndexController::class,'blog'])->name('blog');
+Route::prefix('/')->group(function () {
+    Route::controller(IndexController::class)->group(function () {
+        Route::get('/','index')->name('home');
+        
+        Route::get('/products','products')->name('products');
+        Route::get('/products/{id}','infoProduct')->name('products.info');
+
+        Route::get('/contact','contact')->name('contact');
+        Route::get('/check-out','checkOut')->name('checkout');
+        Route::get('/blog','blog')->name('blog');
+        Route::get('/about','about')->name('about');
+        Route::get('/cart','cart')->name('cart');
+
+    });
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login','showLoginForm')->name('login.form');
+    Route::post('/login','login')->name('login');
+    Route::post('/logout', 'logout')->name('logout');
+
+    Route::post('/check-email','checkEmail')->name('check.email');
+
+    Route::get('/password','showPasswordForm')->name('password.form');
     
+    Route::get('/register','showRegisterForm')->name('register.form');
+    Route::post('/register','register')->name('register');
+    Route::get('/resend-code','resendCode')->name('resend.code');
+});
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'postLogin'])->name('postLogin');
-Route::post('logout', [LoginController::class, 'getLogout'])->name('logout');
-Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
-Route::post('register' ,[RegisterController::class, 'postRegister']);
+
+
 
 
 
