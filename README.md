@@ -25,7 +25,7 @@ This is an e-commerce platform for selling vegetables, built using the Laravel f
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/tangchanhungit/Ecommerce-with-Laravel.git
-   cd ecommerce-vegetables
+   cd ecommerce-with-laravel
    ```
 
 2. **Install dependencies:**
