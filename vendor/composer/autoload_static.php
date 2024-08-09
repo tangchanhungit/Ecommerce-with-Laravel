@@ -533,7 +533,6 @@ class ComposerStaticInit84ddb28727217887cb54fce8edc0eb66
 
     public static $classMap = array (
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\Web\\auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/auth/AuthController.php',
         'App\\Http\\Controllers\\Web\\backend\\DashBoardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/backend/DashBoardController.php',
         'App\\Http\\Controllers\\Web\\backend\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/backend/OrderController.php',
         'App\\Http\\Controllers\\Web\\backend\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Web/backend/ProductController.php',
@@ -544,7 +543,8 @@ class ComposerStaticInit84ddb28727217887cb54fce8edc0eb66
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
         'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
-        'App\\Mail\\UserRegistered' => __DIR__ . '/../..' . '/app/Mail/UserRegistered.php',
+        'App\\Jobs\\SendVerificationCodeJob' => __DIR__ . '/../..' . '/app/Jobs/SendVerificationCodeJob.php',
+        'App\\Mail\\SendVerificationCodeMail' => __DIR__ . '/../..' . '/app/Mail/SendVerificationCodeMail.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderDetail' => __DIR__ . '/../..' . '/app/Models/OrderDetail.php',

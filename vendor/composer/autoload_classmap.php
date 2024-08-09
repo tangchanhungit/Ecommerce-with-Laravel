@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\Web\\auth\\AuthController' => $baseDir . '/app/Http/Controllers/Web/auth/AuthController.php',
     'App\\Http\\Controllers\\Web\\backend\\DashBoardController' => $baseDir . '/app/Http/Controllers/Web/backend/DashBoardController.php',
     'App\\Http\\Controllers\\Web\\backend\\OrderController' => $baseDir . '/app/Http/Controllers/Web/backend/OrderController.php',
     'App\\Http\\Controllers\\Web\\backend\\ProductController' => $baseDir . '/app/Http/Controllers/Web/backend/ProductController.php',
@@ -18,7 +17,8 @@ return array(
     'App\\Http\\Middleware\\CheckRole' => $baseDir . '/app/Http/Middleware/CheckRole.php',
     'App\\Http\\Requests\\LoginRequest' => $baseDir . '/app/Http/Requests/LoginRequest.php',
     'App\\Http\\Requests\\RegisterRequest' => $baseDir . '/app/Http/Requests/RegisterRequest.php',
-    'App\\Mail\\UserRegistered' => $baseDir . '/app/Mail/UserRegistered.php',
+    'App\\Jobs\\SendVerificationCodeJob' => $baseDir . '/app/Jobs/SendVerificationCodeJob.php',
+    'App\\Mail\\SendVerificationCodeMail' => $baseDir . '/app/Mail/SendVerificationCodeMail.php',
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
     'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
     'App\\Models\\OrderDetail' => $baseDir . '/app/Models/OrderDetail.php',
