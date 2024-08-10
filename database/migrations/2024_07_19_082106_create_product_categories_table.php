@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
 
-            $table-> foreignId('category_ID')
+            $table-> foreignId('category_id')
                 ->on('categories')
                 ->onDelete('restrict');
-            $table-> foreignId('product_ID')
+            $table-> foreignId('product_id')
                 ->on('products')
                 ->onDelete('restrict');
             $table->timestamps();

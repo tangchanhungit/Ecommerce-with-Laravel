@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'Tang',
                 'email'=>'tangchanhung@gmail.com',
                 'password'=>Hash::make('123456'),
+                'status' => 1,
                 'img'=>'null',
             ],
         ]);
